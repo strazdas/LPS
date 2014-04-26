@@ -6,7 +6,7 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 #include <stdio.h>
-#include <mpi.h>
+#include <omp.h>
 #include <list>
 #include <algorithm>
 #include <time.h>
@@ -17,21 +17,19 @@ using namespace std;
 
 
 int main(int argc, char *argv[]) {
-    int rank;
-    int procs;
-
-    MPI_Init(&argc, &argv);
-    MPI_Comm_size(MPI_COMM_WORLD, &procs);
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    int threads = 24;
+    omp_set_num_threads(threads);
+    int procs = omp_get_num_procs();
 
     struct timespec start, stop;
     double duration;
 
     int j= 1;
     clock_gettime(CLOCK_REALTIME, &start);
+
     # pragma omp parallel for
     for (int i=0; i < 640; i++){
-        for (int j=0; j < 1200000; j++){
+        for (int j=0; j < 600000; j++){
             j *= 2; 
             j /= 2;
         }
@@ -39,14 +37,10 @@ int main(int argc, char *argv[]) {
     }
     clock_gettime(CLOCK_REALTIME, &stop);
 
-    MPI_Finalize();
-
 
     duration = (stop.tv_sec - start.tv_sec) + (double)(stop.tv_nsec - start.tv_nsec) / (double)BILLION;
 
-    if (rank == 0) {
-        printf("threads=%d ,  %f sec.\n", 2, duration);
-    }
+    printf("%d, %f\n", threads, duration);
 
     return 0;
 }

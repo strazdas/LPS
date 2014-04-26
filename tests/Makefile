@@ -1,6 +1,6 @@
-batch:
-	g++ -lrt comb_part_omp.cpp -o out -fopenmp
-	./out >> comb_part_omp
+omp:
+	g++ -lrt loop_omp.cpp -o out -fopenmp
+	./out >> loop_omp
 
 main:
 	# for threads in 1 2 4 8 16 32 64 128 ; do \

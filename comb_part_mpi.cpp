@@ -10,10 +10,6 @@ using namespace std;
 int main(int argc, char *argv[]) {
     int n = 10;
 
-    double total_clocks;
-    clock_t start_clock = clock();
-    clock_t end_clock;
-
     struct timespec start, stop;
     double duration;
 
@@ -90,22 +86,19 @@ int main(int argc, char *argv[]) {
 
 
     // printf("Process %d on %s out of %d\n", rank, processor_name, procs);
-    end_clock = clock();
 
     MPI_Finalize();
     if (rank == 0) {
 
-        // end_clock = clock();
-        // clock_gettime(CLOCK_REALTIME, &stop);
         duration = ( stop.tv_sec - start.tv_sec ) + (double)( stop.tv_nsec - start.tv_nsec ) / (double)BILLION;
 
         // FILE *file;
         // file = fopen("results", "a+");
 
-        // fprintf(file, "n=%d, threads=%d, exec.time: %f secs., clokcs: %f\n", n, procs, duration, (end_clock - start_clock)/double(CLOCKS_PER_SEC));
+        // fprintf(file, "n=%d, threads=%d, exec.time: %f secs.\n", n, procs, duration);
         // fclose(file);
 
-        printf("Excecution time: %f\n", duration); //(end - start)/double(CLOCKS_PER_SEC));
+        printf("%d, %f\n", procs, duration); //(end - start)/double(CLOCKS_PER_SEC));
     };
     return 0;
 }

@@ -1,0 +1,2 @@
+draw:
+	python draw.py

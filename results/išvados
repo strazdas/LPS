@@ -1,0 +1,6 @@
+1. Nuoseklioji realizacija su Python veikia 54 kartus lėčiau nei su C++.
+2. Laiko matavimai su triukšmų, todėl kartais efektyvumo koeficientas gaunamas daugiau už 1.
+3. Išlygiagretintoms kombinatorinio trianguliavimo dalims nereikia keistis
+informacija, todėl algoritmo efektyvumas didėjant procesorių skaičiui gali būti
+apie 1. Spartinimo koeficiento priklausomybė nuo procesorių gali būti tiesinė.
+4. Naudojant OpenMPI procesorių alokavimas trunka kur kas ilgiau, nei OpenMP.
